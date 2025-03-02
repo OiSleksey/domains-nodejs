@@ -315,7 +315,7 @@ export const resultDNSTRecords5 = [
 
 export const resultDNSTRecords6 = []
 
-const inCVS = [
+export const inCVS = [
   {
     name: 'shaftet.store',
     records: [

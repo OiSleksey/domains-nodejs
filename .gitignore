@@ -1,4 +1,8 @@
 /dist
 /node_modules
 /.env
-/src/output.csv
+/src/output-data
+/src/input-data
+/src/xlsx-servers
+src/input-data/domains.js
+src/xlsx-servers/only-servers.xlsx

@@ -1,7 +1,0 @@
-export const IP_KEY = 'ip'
-export const DOMAIN_KEY = 'domain'
-export const RECORDS_KEY = 'records'
-export const NAME_KEY = 'name'
-export const TYPE_KEY = 'type'
-export const PROXIED_KEY = 'proxied'
-export const CONTENT_KEY = 'content'

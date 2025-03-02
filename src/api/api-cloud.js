@@ -1,7 +1,14 @@
 import axios from 'axios'
 import dotenv from 'dotenv'
-import { getValidateArray, getValidateString } from './validate.js'
-import { NAME_KEY, RECORDS_KEY } from './constants.js'
+import { getValidateArray, getValidateBoolean, getValidateString } from '../assets/validate.js'
+import {
+  AUTO_RENEW_KEY,
+  DATE_KEY,
+  DOMAIN_KEY,
+  LOGIN_KEY,
+  NAME_KEY,
+  RECORDS_KEY,
+} from '../constants/index.js'
 dotenv.config()
 
 const CLOUDFLARE_ZONES_URL = process.env.CLOUDFLARE_ZONES_URL
@@ -47,7 +54,6 @@ export const getDNSRecords = async (zoneId) => {
 }
 
 export const getZones = async (domain) => {
-  console.log(CLOUDFLARE_EMAIL)
   // return null
   try {
     const response = await axios.get(CLOUDFLARE_ZONES_URL, {
@@ -75,7 +81,7 @@ export const getDNSRecordsByDomain = async (domain) => {
     const zonesByDomain = await getZones(domain)
     if (!Array.isArray(zonesByDomain) || !zonesByDomain.length) {
       console.error('NOT Zones ', zonesByDomain)
-      return null
+      return []
     } else {
       const filterZones = zonesByDomain.filter((zone) => zone?.name === domain)
       const zoneId = getValidateString(filterZones[0]?.id)
@@ -88,7 +94,7 @@ export const getDNSRecordsByDomain = async (domain) => {
     }
   } catch (error) {
     console.error('❌ Ошибка запроса:', error.response ? error.response.data : error.message)
-    return null
+    return []
   }
 }
 
@@ -111,6 +117,40 @@ export const getDataRecordsAndDomain = async (domains) => {
         '❌ Ошибка запроса: "getAllDNSRecords": ',
         error.response ? error.response.data : error.message,
       )
+    }
+  }
+  return result
+}
+
+export const getDataRecordsAndDomainByMonth = async (domainsData) => {
+  const result = []
+
+  for (const [index, data] of getValidateArray(domainsData).entries()) {
+    const domain = getValidateString(data?.[NAME_KEY]).trim()
+    console.log(index + ' ' + domain)
+    const date = getValidateString(data?.[DATE_KEY]).trim()
+    const autoRenew = getValidateBoolean(data?.[AUTO_RENEW_KEY])
+    const login = getValidateString(data?.[LOGIN_KEY]).trim()
+    let records = []
+    const resultObject = {
+      [NAME_KEY]: domain,
+      [RECORDS_KEY]: records,
+      [DATE_KEY]: date,
+      [AUTO_RENEW_KEY]: autoRenew,
+      [LOGIN_KEY]: login,
+    }
+    try {
+      if (domain) {
+        records = await getDNSRecordsByDomain(domain)
+        resultObject[RECORDS_KEY] = getValidateArray(records)
+      }
+    } catch (error) {
+      console.error(
+        '❌ Ошибка запроса: "getDataRecordsAndDomainByMonth": ',
+        error.response ? error.response.data : error.message,
+      )
+    } finally {
+      result.push({ ...resultObject })
     }
   }
   return result

@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/main.js",
+    "array": "node src/domains-array.js",
+    "table": "node src/domains-xlsx.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +17,9 @@
     "csv-writer": "^1.6.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "tslog": "^4.9.3"
+    "moment": "^2.30.1",
+    "tslog": "^4.9.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
