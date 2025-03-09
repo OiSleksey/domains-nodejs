@@ -10,6 +10,12 @@ export const AUTO_RENEW_KEY = 'autoRenew'
 export const DATE_KEY = 'date'
 export const FROM_KEY = 'from'
 export const TO_KEY = 'to'
+export const ZONE_ID_KEY = 'zoneId'
+
+//CLOUD KEYS
+export const NAME_CLOUD_KEY = 'name'
+export const ID_CLOUD_KEY = 'id'
+export const STATUS_CLOUD_KEY = 'status'
 
 //Namecheap keys
 export const XLSX_NAME_KEY = 'Name'
@@ -40,3 +46,7 @@ export const XLSX_TITLE_SERVER_KEY = 'Name Servers'
 export const XLSX_TITLE_AUTO_RENEW_KEY = 'Auto Renew'
 export const XLSX_TITLE_LOGIN_KEY = 'Login'
 export const XLSX_TITLE_DEPARTMENT_KEY = 'Department'
+export const XLSX_TITLE_STATUS_CLOUD_KEY = 'Status Cloud'
+export const XLSX_TITLE_ZONE_ID_KEY = 'Zone ID Cloud (DEVELOP)'
+
+//RESULT CSV Cloud domains zones

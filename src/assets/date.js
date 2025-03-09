@@ -62,3 +62,8 @@ export const getFilteredDataByDate = (data, from, to) => {
     return itemDate.isSameOrAfter(fromDate, 'day') && itemDate.isSameOrBefore(toDate, 'day')
   })
 }
+
+export const delayMS = async (ms) => {
+  if (!ms) return new Promise((resolve) => resolve)
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
